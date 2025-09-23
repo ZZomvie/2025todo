@@ -8,51 +8,52 @@ body {
 /* font */
 h2 {
   font-weight: 900;
-  font-size: 50px;
-  font-size: 3.125rem;
+  font-size: 40px;
+  font-size: 2.55rem;
 }
 
 h3 {
-  font-weight: 700;
-  font-size: 40px;
-  font-size: 2.5rem;
-}
-
-h4 {
   font-weight: 700;
   font-size: 30px;
   font-size: 1.875rem;
 }
 
-span {
-  font-weight: 400;
+h4 {
+  font-weight: 700;
   font-size: 24px;
   font-size: 1.5rem;
 }
 
-p {
-  font-weight: 300;
+span {
+  font-weight: 400;
   font-size: 20px;
   font-size: 1.25rem;
 }
 
-.dummy {
+p,
+a {
   font-weight: 300;
   font-size: 14px;
   font-size: 0.875rem;
+}
+
+.dummy {
+  font-weight: 300;
+  font-size: 11px;
+  font-size: 0.6875rem;
 }
 
 /* btn */
 
 button {
   width: auto;
-  height: 40px;
   border: none;
   border-radius: 5px;
-  font-size: 20px;
-  font-size: 1.25rem;
+  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
+  padding: 0px 14px;
 }
 
 .white_btn {
@@ -71,6 +72,11 @@ button {
 
 .blue_btn:hover {
   background: #1f284d;
+}
+
+.long_btn {
+  width: 200px;
+  padding: 5px 0px;
 }
 
 /* submit */
@@ -103,7 +109,7 @@ input[placeholder] {
   font-size: 16px;
   font-size: 1rem;
   font-weight: 300;
-  font-family: "Noto Sans KR";
+  font-family: "Pretendard", "Noto Sans KR";
 }
 
 input:focus,
@@ -123,7 +129,7 @@ textarea {
   font-size: 16px;
   font-size: 1rem;
   font-weight: 400;
-  font-family: "Noto Sans KR";
+  font-family: "Pretendard", "Noto Sans KR";
   resize: none;
 }
 
@@ -160,23 +166,96 @@ hr {
   border-bottom: 2px solid #2e53a0;
 }
 
-.menu > li > a {
-  text-decoration: none;
-  font-weight: bold;
+/* start ********************** */
+#wrap {
+  width: 100%;
+  height: auto;
+  border: 1px solid blue;
   display: flex;
-  padding: 5px 10px;
-  background: #eee;
-  color: #333;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.menu .sub li a {
+.container {
+  width: 90%;
+  height: auto;
+  border: 1px solid red;
   display: flex;
-  padding: 5px 20px;
-  background: #ddd;
-  text-decoration: none;
-  color: #333;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.menu .sub li a:hover {
-  background: #ccc;
+#header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* sect1 */
+
+#sect1,
+#sect2,
+#sect3 {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#sect1 form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputList {
+  width: 50%;
+  display: flex;
+
+  justify-content: space-between;
+  background-color: yellow;
+}
+
+.inputList > [type="text"] {
+  width: 70%;
+}
+
+/* sect2 */
+
+.listAll {
+  width: 50%;
+  background-color: yellow;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.list {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ListTit {
+  width: 70%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.icons {
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.icons > img {
+  width: 20px;
 }

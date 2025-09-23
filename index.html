@@ -9,8 +9,53 @@
     <title>To Do List</title>
   </head>
   <body>
-    <h1>hello</h1>
-    <h2>test</h2>
-    <p>test33</p>
+    <div id="wrap">
+      <div class="container">
+        <header id="header">
+          <h2>오늘의 할일 리스트</h2>
+        </header>
+        <!-- header end -->
+
+        <section id="sect1">
+          <div class="container">
+            <form action="#">
+              <div class="inputList">
+                <input
+                  type="text"
+                  name="test"
+                  placeholder="test"
+                  onfocus="this.placeholder=''"
+                  onblur="this.placeholder='test'"
+                /><button class="blue_btn">버튼</button>
+              </div>
+            </form>
+          </div>
+        </section>
+        <!-- sect1 end -->
+
+        <section id="sect2">
+          <div class="container">
+            <ul class="listAll">
+              <li class="list">
+                <span class="ListTit">집에가기</span>
+                <div class="icons">
+                  <img src="img/icon_test.png" alt="icon" />
+                  <img src="img/icon_test.png" alt="icon" />
+                  <img src="img/icon_test.png" alt="icon" />
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <!-- sect2 end -->
+
+        <section id="sect3">
+          <div class="container">
+            <button class="blue_btn long_btn">전체 삭제</button>
+          </div>
+        </section>
+        <!-- sect3 end -->
+      </div>
+    </div>
   </body>
 </html>
