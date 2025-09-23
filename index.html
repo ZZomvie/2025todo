@@ -12,7 +12,7 @@
     <div id="wrap">
       <div class="container">
         <header id="header">
-          <h2>오늘의 할일 리스트</h2>
+          <h2 class="mainTit">오늘의 할일 리스트</h2>
         </header>
         <!-- header end -->
 
@@ -23,25 +23,28 @@
                 <input
                   type="text"
                   name="test"
-                  placeholder="test"
+                  placeholder="입력하세요"
                   onfocus="this.placeholder=''"
-                  onblur="this.placeholder='test'"
-                /><button class="blue_btn">버튼</button>
+                  onblur="this.placeholder='입력하세요'"
+                /><button class="blue_btn" id="getValBtn">버튼</button>
               </div>
             </form>
           </div>
         </section>
         <!-- sect1 end -->
 
-        <section id="sect2">
+        <section id="sect2" style="display: none">
           <div class="container">
             <ul class="listAll">
               <li class="list">
                 <span class="ListTit">집에가기</span>
                 <div class="icons">
-                  <img src="img/icon_test.png" alt="icon" />
-                  <img src="img/icon_test.png" alt="icon" />
-                  <img src="img/icon_test.png" alt="icon" />
+                  <div>
+                    <input type="checkbox" name="checker" id="checker1" />
+                    <label for="checker1"></label>
+                  </div>
+                  <div><img src="img/edit_color.png" alt="icon" /></div>
+                  <div><img src="img/delete.png" alt="icon" /></div>
                 </div>
               </li>
             </ul>
@@ -57,5 +60,6 @@
         <!-- sect3 end -->
       </div>
     </div>
+    <script src="js/main.js"></script>
   </body>
 </html>

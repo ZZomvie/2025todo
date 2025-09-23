@@ -58,20 +58,20 @@ button {
 
 .white_btn {
   background: #fff;
-  color: #2e53a0;
+  color: palevioletred;
 }
 
 .white_btn:hover {
-  background: #d7e2ff;
+  background: #fde0e5;
 }
 
 .blue_btn {
-  background: #2e53a0;
+  background: palevioletred;
   color: #fff;
 }
 
 .blue_btn:hover {
-  background: #1f284d;
+  background: rgb(152, 39, 77);
 }
 
 .long_btn {
@@ -99,7 +99,7 @@ input {
   font-size: 20px;
   font-size: 1.25rem;
   font-weight: 300;
-  border: 1px solid #666;
+  border: 1px solid rgb(152, 39, 77);
   border-radius: 5px;
   text-indent: 10px;
   color: #333;
@@ -115,8 +115,8 @@ input[placeholder] {
 input:focus,
 textarea:focus {
   outline: none;
-  border: 1px solid #2e53a0;
-  background-color: #f2f6ff;
+  border: 1px solid palevioletred;
+  background-color: #fff2fb;
 }
 
 textarea {
@@ -147,30 +147,28 @@ input[type="checkbox"]:checked + label {
 input[type="checkbox"] + label:before,
 input[type="checkbox"]:checked + label:before {
   content: "";
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   position: absolute;
-  top: 1px;
-  left: 0;
-  background: url("../images/common/icon/check_box_de.png") no-repeat left
-    center / contain;
+  top: -10px;
+  left: -10px;
+  background: url("../img/check_box_de.png") no-repeat left center / contain;
 }
 
 input[type="checkbox"]:checked + label:before {
-  background: url("../images/common/icon/check_box_ch.png") no-repeat left
-    center / contain;
+  background: url("../img/check_box_ch.png") no-repeat left center / contain;
 }
 
 /* something */
 hr {
-  border-bottom: 2px solid #2e53a0;
+  border-bottom: 2px solid palevioletred;
 }
 
 /* start ********************** */
 #wrap {
   width: 100%;
   height: auto;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -179,7 +177,7 @@ hr {
 .container {
   width: 90%;
   height: auto;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -206,6 +204,10 @@ hr {
   justify-content: center;
 }
 
+.mainTit {
+  color: rgb(152, 39, 77);
+}
+
 #sect1 form {
   width: 100%;
   display: flex;
@@ -219,18 +221,22 @@ hr {
   display: flex;
 
   justify-content: space-between;
-  background-color: yellow;
+  /* background-color: yellow; */
 }
 
 .inputList > [type="text"] {
   width: 70%;
 }
 
+.inputList > button {
+  padding: 0 7%;
+}
+
 /* sect2 */
 
 .listAll {
   width: 50%;
-  background-color: yellow;
+  /* background-color: yellow; */
   padding: 10px 0;
   display: flex;
   flex-direction: column;
@@ -241,6 +247,8 @@ hr {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid palevioletred;
 }
 
 .ListTit {
@@ -256,6 +264,10 @@ hr {
   justify-content: space-between;
 }
 
-.icons > img {
+.icons > div {
   width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
