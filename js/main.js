@@ -1,11 +1,19 @@
-// main.js
-
 window.addEventListener("DOMContentLoaded", function () {
   const input = document.querySelector(".inputList input");
   const addBtn = document.getElementById("getValBtn");
+  const inputList = document.querySelector(".inputList");
   const listAll = document.querySelector(".listAll");
   const sect2 = document.getElementById("sect2");
   const clearAllBtn = document.querySelector("#sect3 .long_btn");
+
+  // 취소 버튼 생성
+  const cancelBtn = document.createElement("button");
+  cancelBtn.textContent = "취소";
+  cancelBtn.style.display = "none";
+  cancelBtn.id = "cancelBtn";
+  addBtn.insertAdjacentElement("afterend", cancelBtn);
+
+  let editIndex = null; // 수정 중인 인덱스 저장
 
   // 로컬스토리지에서 할 일 가져오기
   function getTodos() {
@@ -17,7 +25,7 @@ window.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("todos", JSON.stringify(todos));
   }
 
-  // 화면에 리스트 출력
+  // 리스트 렌더링
   function renderTodos() {
     const todos = getTodos();
     listAll.innerHTML = "";
@@ -33,7 +41,9 @@ window.addEventListener("DOMContentLoaded", function () {
       const li = document.createElement("li");
       li.className = "list";
       li.innerHTML = `
-        <span class="ListTit">${todo.text}</span>
+        <span class="ListTit ${todo.checked ? "checked" : ""}">${
+        todo.text
+      }</span>
         <div class="icons">
           <div>
             <input type="checkbox" id="checker${index}" ${
@@ -41,48 +51,81 @@ window.addEventListener("DOMContentLoaded", function () {
       }/>
             <label for="checker${index}"></label>
           </div>
-          <div><img src="img/edit_color.png" alt="edit" class="editBtn" data-index="${index}" /></div>
-          <div><img src="img/delete.png" alt="delete" class="deleteBtn" data-index="${index}" /></div>
+          <div>
+            <img src="img/edit_color.png" alt="edit" class="editBtn" data-index="${index}" />
+          </div>
+          <div>
+            <img src="img/delete.png" alt="delete" class="deleteBtn" data-index="${index}" />
+          </div>
         </div>
       `;
-
       listAll.appendChild(li);
     });
   }
 
-  // 할 일 추가
-  function addTodo() {
+  // 추가 / 수정
+  function addOrEditTodo() {
     const text = input.value.trim();
     if (!text) return;
 
     const todos = getTodos();
-    todos.push({ text: text, checked: false });
-    saveTodos(todos);
+
+    if (editIndex !== null) {
+      if (todos[editIndex].checked) {
+        alert("완료된 항목은 수정할 수 없습니다.");
+        return;
+      }
+      todos[editIndex].text = text;
+      editIndex = null;
+      addBtn.textContent = "추가";
+      cancelBtn.style.display = "none";
+      inputList.classList.remove("editing"); // 수정 완료 후 클래스 제거
+    } else {
+      todos.push({ text, checked: false });
+    }
 
     input.value = "";
+    saveTodos(todos);
     renderTodos();
   }
 
-  // 할 일 삭제
+  // 삭제
   function deleteTodo(index) {
     const todos = getTodos();
+    if (todos[index].checked) {
+      alert("완료된 항목은 삭제할 수 없습니다.");
+      return;
+    }
     todos.splice(index, 1);
     saveTodos(todos);
     renderTodos();
   }
 
-  // 할 일 수정
+  // 수정 (input에서)
   function editTodo(index) {
     const todos = getTodos();
-    const newText = prompt("수정할 내용을 입력하세요:", todos[index].text);
-    if (newText !== null && newText.trim() !== "") {
-      todos[index].text = newText.trim();
-      saveTodos(todos);
-      renderTodos();
+    if (todos[index].checked) {
+      alert("완료된 항목은 수정할 수 없습니다.");
+      return;
     }
+    input.value = todos[index].text;
+    editIndex = index;
+    addBtn.textContent = "수정 완료";
+    cancelBtn.style.display = "inline-block";
+    inputList.classList.add("editing"); // 수정 중 클래스 추가
+    input.focus();
   }
 
-  // 체크박스 토글
+  // 수정 취소
+  function cancelEdit() {
+    editIndex = null;
+    input.value = "";
+    addBtn.textContent = "추가";
+    cancelBtn.style.display = "none";
+    inputList.classList.remove("editing"); // 클래스 제거
+  }
+
+  // 체크 토글
   function toggleCheck(index) {
     const todos = getTodos();
     todos[index].checked = !todos[index].checked;
@@ -90,48 +133,64 @@ window.addEventListener("DOMContentLoaded", function () {
     renderTodos();
   }
 
-  // 전체 삭제
+  // 전체 삭제 (체크된 항목 남김)
   function clearAll() {
-    localStorage.removeItem("todos");
+    const todos = getTodos();
+    const remaining = todos.filter((todo) => todo.checked);
+    saveTodos(remaining);
     renderTodos();
   }
 
-  // 이벤트 등록
-  addBtn.addEventListener("click", function (e) {
+  // 이벤트
+  addBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    addTodo();
+    addOrEditTodo();
   });
 
-  // 엔터키로 추가
-  input.addEventListener("keyup", function (e) {
-    if (e.key === "Enter") {
-      addTodo();
-    }
+  cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    cancelEdit();
   });
 
-  // 삭제, 수정, 체크 이벤트 (이벤트 위임)
-  listAll.addEventListener("click", function (e) {
+  input.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") addOrEditTodo();
+  });
+
+  listAll.addEventListener("click", (e) => {
     const target = e.target;
     const index = target.dataset.index;
+    if (!index) return;
 
     if (target.classList.contains("deleteBtn")) {
+      if (editIndex !== null) {
+        alert("수정 중에는 삭제할 수 없습니다.");
+        return; // 수정 중이면 삭제 금지
+      }
       deleteTodo(index);
     } else if (target.classList.contains("editBtn")) {
       editTodo(index);
     }
   });
-
-  // 체크박스 토글 (위임)
+  // 체크박스 토글 (수정 중이면 체크/해제 금지)
   listAll.addEventListener("change", function (e) {
     if (e.target.type === "checkbox") {
+      if (editIndex !== null) {
+        e.preventDefault(); // 체크 상태 변경 막기
+        alert("수정 중에는 체크를 변경할 수 없습니다.");
+        renderTodos(); // 원래 상태로 복귀
+        return;
+      }
       const index = e.target.id.replace("checker", "");
       toggleCheck(index);
     }
   });
+  clearAllBtn.addEventListener("click", (e) => {
+    if (editIndex !== null) {
+      alert("수정 중에는 전체 삭제할 수 없습니다.");
+      return; // 수정 중이면 전체 삭제 금지
+    }
+    clearAll();
+  });
 
-  // 전체 삭제 버튼
-  clearAllBtn.addEventListener("click", clearAll);
-
-  // 초기 렌더링
   renderTodos();
 });

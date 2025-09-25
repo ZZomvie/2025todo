@@ -235,6 +235,10 @@ hr {
   padding: 0 7%;
 }
 
+.inputList.editing > button {
+  padding: 0% 3%;
+}
+
 /* sect2 */
 
 .listAll {
@@ -262,6 +266,11 @@ hr {
   justify-content: flex-start;
 }
 
+.ListTit.checked {
+  text-decoration: line-through;
+  color: #999;
+}
+
 .icons {
   width: 100px;
   display: flex;
@@ -281,6 +290,21 @@ hr {
 
 #sect3 {
   margin-bottom: 30px;
+}
+
+@media all and (max-width: 1280px) {
+  .inputList.editing {
+    flex-direction: column;
+  }
+
+  .inputList.editing > [type="text"] {
+    width: 100%;
+  }
+
+  .inputList.editing > button {
+    padding: 5px 3%;
+    margin-top: 10px;
+  }
 }
 
 @media all and (max-width: 768px) {
